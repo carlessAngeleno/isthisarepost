@@ -16,13 +16,13 @@
 
 {{if matches == 'None Found':}}
 <div class="page-header ca_section">
-  <h1>No duplicates found in the last X days! <small></small></h1>
+  <h1>No duplicates found since {{=start_date}}! <small></small></h1>
 </div>
 
 
 {{elif len(matches) > 0:}}
 <div class="page-header ca_section">
-  <h1>Duplicate(s) found <small>Your upload could be a repost</small></h1>
+  <h1>{{=len(matches)}} duplicate(s) found since {{=start_date}} <small>Your upload could be a repost</small></h1>
 </div>
 
 <ol>

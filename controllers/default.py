@@ -18,6 +18,7 @@ import json
 import pdb
 import tempfile
 import urllib2
+from datetime import date, timedelta
 
 def index():
     credentials_path = open(os.path.join(
@@ -28,34 +29,49 @@ def index():
     CREDENTIALS = json.load(credentials_path)
 
     image_form = FORM(
-        INPUT(_name='image_title',_type='text', requires=IS_NOT_EMPTY()),
-        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY())
+        # INPUT(_name='image_title',_type='text', requires=IS_NOT_EMPTY()),
+        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY()),
+        SELECT(_name='image_time', requires=IS_NOT_EMPTY())
     )   
     matches = []
     images = []
 
     web_form = FORM(
-        INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY())
+        INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY()),
+        SELECT(_name='image_time', requires=IS_NOT_EMPTY())        
     )
 
     if image_form.accepts(request.vars,formname='image_form'):       
         submitted = image_form.vars.image_file.file
         name = image_form.vars.image_file.filename
+
+        image_time = int(image_form.vars.image_time) - 1       
+        start_date = date.today()-timedelta(days=image_time)
+        start_date = start_date.strftime("%Y-%m-%d")        
+    
+        
         hashed = avhash(submitted)
-        matches = checkImages(hashed, CREDENTIALS)
+        matches = checkImages(hashed, start_date, CREDENTIALS)
         if len(matches) == 0:
             matches = 'None Found'                 
         session.images = images
         session.matches = matches
+        session.start_date = start_date
         redirect(URL('results'))
     elif web_form.accepts(request.vars,formname='web_form'):  
         submitted = downloadImage(web_form.vars.image_url)
+
+        image_time = int(web_form.vars.image_time) - 1       
+        start_date = date.today()-timedelta(days=image_time)
+        start_date = start_date.strftime("%Y-%m-%d")  
+
         hashed = avhash(submitted)
-        matches = checkImages(hashed, CREDENTIALS)
+        matches = checkImages(hashed, start_date, CREDENTIALS)
         if len(matches) == 0:
             matches = 'None Found'                 
         session.images = images
         session.matches = matches
+        session.start_date = start_date        
         os.remove(submitted)
         redirect(URL('results'))        
     elif image_form.errors:
@@ -107,7 +123,11 @@ def backbone():
 
 
 def results():
-    return dict(images=session.images, matches=session.matches)
+    return dict(
+        images=session.images, 
+        matches=session.matches, 
+        start_date=session.start_date
+    )
 
 
 def user():
@@ -201,7 +221,7 @@ def create_temporary_copy(path):
     return temp_path        
 
 
-def checkImages(hashed, credentials):
+def checkImages(hashed, min_date, credentials):
     db = MySQLdb.connect(
         host=credentials['host'],
         user= credentials['user'],
@@ -210,7 +230,8 @@ def checkImages(hashed, credentials):
         cursorclass=MySQLdb.cursors.DictCursor            
     )    
     cur = db.cursor()     
-    cur.execute("SELECT * FROM popular WHERE hashed = " + str(hashed) + ";")
+    query = "SELECT * FROM popular WHERE hashed = " + str(hashed) + " AND timeAdded > '" + min_date + "' ORDER BY timeAdded DESC;"
+    cur.execute(query)
     rows = cur.fetchall()
     db.commit()
     db.close()

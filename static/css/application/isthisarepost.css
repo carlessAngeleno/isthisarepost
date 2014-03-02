@@ -35,3 +35,11 @@ body {
 select.mini {
   max-width: 90px;
 }
+
+.navbar .brand {
+  padding-right: 2px;
+}
+
+fieldset div.non_button {
+  min-height: 150px;
+}

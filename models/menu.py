@@ -5,15 +5,15 @@
 ## Customize your APP title, subtitle and menus here
 #########################################################################
 
-response.logo = A(XML('&nbsp&nbsp'),'Is This a Repost',
+response.logo = A('Is This a Repost',
                   _class="brand",_href=URL('../..'))
-response.title = request.application.replace('_',' ').title()
+response.title = 'Is This a Repost'
 response.subtitle = ''
 
 ## read more at http://dev.w3.org/html5/markup/meta.name.html
-response.meta.author = 'Your Name <you@example.com>'
-response.meta.description = 'a cool new app'
-response.meta.keywords = 'web2py, python, framework'
+response.meta.author = 'carlessAngeleno <daydream.han@gmail.com>'
+response.meta.description = 'Check for potential imgur reposts'
+response.meta.keywords = 'web2py, python, framework, imgur'
 response.meta.generator = 'Web2py Web Framework'
 
 ## your http://google.com/analytics id
