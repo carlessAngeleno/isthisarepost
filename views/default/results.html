@@ -17,10 +17,11 @@
 {{if matches == 'None Found':}}
 <h2>No duplicates found in the last X days!</h2>
 {{elif len(matches) > 0:}}
-<h2>Duplicate found!</h2>
+<h2>Duplicate(s) found!</h2>
 	{{for match in matches:}}
+
 		<li>
-			<a href="{{=match['link']}}">
+			<a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">
 				<img src="{{=match['link']}}" style="width: 350px;"/>
 				{{=match['title']}}
 			</a>
