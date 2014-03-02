@@ -1,6 +1,6 @@
 {{extend "layout.html"}}
 <div class="ca_section">
-  <h1> Any pictures on <img src="static/images/imgur_logo.png" alt="imgur" style="height: 40px;"></img> that match...</h1> 
+  <h1> Any pictures on <img src="{{=URL('static', 'images/imgur_logo.png')}}" alt="imgur" style="height: 40px;"></img> that match...</h1> 
 </div>
 <!-- <div class="ca_section">
   <form id="image_form" action="" enctype="multipart/form-data" method="post">
@@ -28,7 +28,7 @@
             <input class="string hidden" name="image_title" type="text" value="df" placeholder="hello">  
             <span class="help-block">We do not store images that you select</span>
             <label>in the last</label>
-            <select>
+            <select class="mini">
               <option>day</option>
               <option>2 days</option>
               <option>3 days</option>
@@ -50,7 +50,7 @@
             <input name="_formname" type="hidden" value="web_form">   
             <span class="help-block">We do not store images that you link to</span>
             <label>in the last</label>
-            <select>
+            <select class="mini">
               <option>day</option>
               <option>2 days</option>
               <option>3 days</option>

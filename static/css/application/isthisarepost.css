@@ -16,7 +16,7 @@ body {
 
 #image_form, #web_form {
   margin: 10px;
-  padding: 40px;
+  padding: 20px;
 }
 
 #image_form, #web_form {
@@ -30,4 +30,8 @@ body {
 
 .nav-pills a {
   color: rgba(228, 26, 28, 0.7);
+}
+
+select.mini {
+  max-width: 90px;
 }
