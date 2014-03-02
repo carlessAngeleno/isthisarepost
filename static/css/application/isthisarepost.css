@@ -1,0 +1,10 @@
+.ca_section {
+  margin: 10px;
+  padding: 40px;
+  background-color: rgb(255, 253, 253);
+  border: 1px solid #e6e6e6;
+}
+
+body {
+  background-color: rgb(245, 241, 241);
+}

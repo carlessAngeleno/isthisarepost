@@ -1,4 +1,4 @@
-{{extend "template.html"}}
+{{extend "layout.html"}}
  
  <ol>
 {{for image in images:}}
@@ -18,7 +18,7 @@
 <h2>No duplicates found in the last X days!</h2>
 
 {{elif len(matches) > 0:}}
-<div class="page-header">
+<div class="page-header ca_section">
   <h1>Duplicate(s) found <small>Your upload could be a repost</small></h1>
 </div>
 
@@ -30,14 +30,7 @@
 				<img src="{{=match['link']}}" style="width: 350px;"/>				
 			</a>
 			<p>Appeared at: {{=match['timeAdded']}}</p>
-		</li>
-		<li class="ca_section">
-			<a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">
-				<h4>{{=match['title']}}</h4>
-				<img src="{{=match['link']}}" style="width: 350px;"/>				
-			</a>
-			<p>Appeared at: {{=match['timeAdded']}}</p>
-		</li>		
+		</li>	
 	{{pass}}
 {{pass}}
 </ol>
