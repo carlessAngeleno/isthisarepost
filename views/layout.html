@@ -81,7 +81,7 @@
           <span class="icon-bar"></span>
         </button>
         {{=response.logo or ''}}        
-        <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
+        <ul id="navbar" class="nav pull-right hidden">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
         {{include 'also_by.html'}}        
         <div class="{{='nav-collapse' if is_mobile else 'nav'}}">
           {{if response.menu:}}
@@ -127,7 +127,7 @@
             <div class="footer-content">
                 {{block footer}} <!-- this is default footer -->
                 <div class="copyright pull-left"> &#169; {{=request.now.year}} carlessAngeleno </div>
-                <div id="poweredBy" class="pull-right">
+                <div id="poweredBy" class="pull-right hidden">
                     {{=T('Powered by')}}
                     <a href="http://www.web2py.com/">web2py</a>
                 </div>
