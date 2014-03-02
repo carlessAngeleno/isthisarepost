@@ -1,0 +1,30 @@
+{{extend "layout.html"}}
+ 
+ <ul>
+{{for image in images:}}
+	<li>
+		<a href="{{=URL(f='link', args=image.file_o)}}">
+			<img src="{{=URL(f='link', args=image.file_o)}}" style="width: 350px;"/>
+			{{=image.title}}
+		</a>
+		<a href="{{=URL(f='download', args=image.file_o)}}">
+			[Download]
+		</a>
+	</li>
+{{pass}}
+
+
+{{if matches == 'None Found':}}
+<h2>No duplicates found in the last X days!</h2>
+{{elif len(matches) > 0:}}
+<h2>Duplicate found!</h2>
+	{{for match in matches:}}
+		<li>
+			<a href="{{=match['link']}}">
+				<img src="{{=match['link']}}" style="width: 350px;"/>
+				{{=match['title']}}
+			</a>
+		</li>
+	{{pass}}
+{{pass}}
+</ul>

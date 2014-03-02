@@ -37,3 +37,6 @@ nosetests.xml
 
 # web2py
 private/
+errors/
+sessions/
+databases/

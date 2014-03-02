@@ -80,13 +80,13 @@ use_janrain(auth, filename='private/janrain.key')
 #########################################################################
 
 
-db.define_table('images',
-    Field('title'),
-    Field('imageFile', 'upload'),
-    Field('hashed'),
-    format = '%(title)s'
-)
+# db.define_table('images',
+#     Field('title'),
+#     Field('imageFile', 'upload'),
+#     Field('hashed'),
+#     format = '%(title)s'
+# )
 
 ## after defining tables, uncomment below to enable auditing
-auth.enable_record_versioning(db)
+# auth.enable_record_versioning(db)
 
