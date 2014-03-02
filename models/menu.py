@@ -5,7 +5,7 @@
 ## Customize your APP title, subtitle and menus here
 #########################################################################
 
-response.logo = A(B('Is This a Repost'),
+response.logo = A('Is This a Repost',
                   _class="brand",_href=URL('../..'))
 response.title = request.application.replace('_',' ').title()
 response.subtitle = ''
@@ -24,7 +24,7 @@ response.google_analytics_id = None
 #########################################################################
 
 response.menu = [
-    (T('Home'), False, URL('default', 'index'), [])
+    # (T('Home'), False, URL('default', 'index'), [])
 ]
 
 DEVELOPMENT_MENU = False

@@ -1,8 +1,55 @@
 {{extend "template.html"}}
-<h2>Upload your shit!</h2> 
-<form action="" enctype="multipart/form-data" method="post">
-  <input name="_formname" type="hidden" value="image_form">
-  <input class="upload" name="image_file" type="file">
-  <input class="string" name="image_title" type="text" value="" placeholder="hello">  
-  <input type="submit" value="Submit">
-</form>
+<div class="ca_section">
+  <h1>I'm thinking about uploading to imgur...</h1> 
+</div>
+<!-- <div class="ca_section">
+  <form id="image_form" action="" enctype="multipart/form-data" method="post">
+    <input name="_formname" type="hidden" value="image_form">
+    <input class="upload" name="image_file" type="file">
+    <input class="string" name="image_title" type="text" value="" placeholder="hello">  
+    <input type="submit" value="Submit">
+  </form>
+</div> -->
+
+<div class="ca_section">
+  <form id="image_form" action="" enctype="multipart/form-data" method="post">
+    <fieldset>
+      <legend>a file from my computer</legend>
+      <label>Upload File</label>
+      <input name="_formname" type="hidden" value="image_form">
+      <input class="upload" name="image_file" type="file">
+      <input class="string hidden" name="image_title" type="text" value="df" placeholder="hello">  
+      <span class="help-block">We do not store images that you upload</span>
+
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+  </form>
+</div>
+
+<div class="ca_section">
+  <h2> - OR - </h2>
+</div>
+<div class="ca_section">
+  <form id="web_form" action="" enctype="multipart/form-data" method="post">
+    <fieldset>
+      <legend>an image from the web</legend>
+      <label>Paste URL</label>
+      <input class="upload" name="image_url" type="text" placeholder="e.g. www.google.com/images/srpr/logo11w.png">
+      <input name="_formname" type="hidden" value="web_form">
+      <input class="upload" name="image_file" type="file">
+      <!-- <input class="string hidden" name="image_title" type="text" value="df" placeholder="hello">   -->      
+      <span class="help-block">We do not store images that you upload</span>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+  </form>
+</div>
+
+
+
+<!-- 
+      <label class="checkbox">
+        <input type="checkbox"> Check me out
+      </label>
+ -->
+      

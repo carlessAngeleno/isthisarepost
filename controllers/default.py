@@ -15,7 +15,9 @@ import MySQLdb
 import MySQLdb.cursors
 import os
 import json
-
+import pdb
+import tempfile
+import urllib2
 
 def index():
     credentials_path = open(os.path.join(
@@ -32,6 +34,10 @@ def index():
     matches = []
     images = []
 
+    web_form = FORM(
+        INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY())
+    )
+
     if image_form.accepts(request.vars,formname='image_form'):       
         submitted = image_form.vars.image_file.file
         name = image_form.vars.image_file.filename
@@ -42,10 +48,31 @@ def index():
         session.images = images
         session.matches = matches
         redirect(URL('results'))
+    elif web_form.accepts(request.vars,formname='web_form'):  
+        submitted = downloadImage(web_form.vars.image_url)
+        hashed = avhash(submitted)
+        matches = checkImages(hashed, CREDENTIALS)
+        if len(matches) == 0:
+            matches = 'None Found'                 
+        session.images = images
+        session.matches = matches
+        os.remove(submitted)
+        redirect(URL('results'))        
     elif image_form.errors:
-        response.flash = 'form has errors'
+        response.flash = 'Upload form has errors'
         return dict()        
+    elif web_form.errors:
+        response.flash = 'Web form has errors'
+        return dict()                
     return dict()
+
+
+def downloadImage(image_url):
+    imagefile = urllib2.urlopen(image_url)
+    outfile = tempfile.NamedTemporaryFile().name
+    output = open(outfile, 'wb')
+    output.write(imagefile.read())
+    return outfile
 
 
 def backbone():
