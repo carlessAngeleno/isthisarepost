@@ -1,6 +1,6 @@
 {{extend "layout.html"}}
 <div class="ca_section">
-  <h1> Does <img src="static/images/imgur_logo.png" alt="imgur" style="height: 40px;"></img> have pictures that match...</h1> 
+  <h1> Any pictures on <img src="static/images/imgur_logo.png" alt="imgur" style="height: 40px;"></img> that match...</h1> 
 </div>
 <!-- <div class="ca_section">
   <form id="image_form" action="" enctype="multipart/form-data" method="post">
@@ -12,36 +12,63 @@
 </div> -->
 
 <div class="ca_section">
-  <form id="image_form" action="" enctype="multipart/form-data" method="post">
-    <fieldset>
-      <legend>a file from my computer</legend>
-      <label>Upload File</label>
-      <input name="_formname" type="hidden" value="image_form">
-      <input class="upload" name="image_file" type="file">
-      <input class="string hidden" name="image_title" type="text" value="df" placeholder="hello">  
-      <span class="help-block">We do not store images that you upload</span>
-      <button type="submit" class="btn btn-primary"><b>Check</b></button>
-    </fieldset>
-  </form>
+  <div class="tabbable"> <!-- Only required for left/right tabs -->
+    <ul class="nav nav-pills">
+      <li class="active"><a href="#tab1" data-toggle="tab"><h4>A FILE FROM MY COMPUTER</h4></a></li>
+      <li><a href="#tab2" data-toggle="tab"><h4>AN IMAGE FROM THE WEB</h4></a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <form id="image_form" action="" enctype="multipart/form-data" method="post">
+          <fieldset>
+            <!-- <legend>a file from my computer</legend> -->
+            <!-- <label>Upload File</label> -->
+            <input name="_formname" type="hidden" value="image_form">
+            <input class="upload" name="image_file" type="file">
+            <input class="string hidden" name="image_title" type="text" value="df" placeholder="hello">  
+            <span class="help-block">We do not store images that you select</span>
+            <label>in the last</label>
+            <select>
+              <option>day</option>
+              <option>2 days</option>
+              <option>3 days</option>
+              <option>7 days</option>
+              <option>30 days</option>
+            </select>  
+            <p style="padding: 50px;">    
+              <button type="submit" class="btn btn-large btn-primary"><b>Check</b></button>
+            </p>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane" id="tab2">
+        <form id="web_form" action="" enctype="multipart/form-data" method="post">
+          <fieldset>
+            <!-- <legend>an image from the web</legend> -->
+            <!-- <label>Paste URL</label> -->
+            <input class="upload" name="image_url" type="text" placeholder="e.g. www.google.com/images/srpr/logo11w.png">
+            <input name="_formname" type="hidden" value="web_form">   
+            <span class="help-block">We do not store images that you link to</span>
+            <label>in the last</label>
+            <select>
+              <option>day</option>
+              <option>2 days</option>
+              <option>3 days</option>
+              <option>7 days</option>
+              <option>30 days</option>
+            </select>  
+            <p style="padding: 50px;">   
+              <button type="submit" class="btn btn-large btn-primary"><b>Check</b></button>
+            </p>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="ca_section">
-  <h2> - OR - </h2>
-</div>
-<div class="ca_section">
-  <form id="web_form" action="" enctype="multipart/form-data" method="post">
-    <fieldset>
-      <legend>an image from the web</legend>
-      <label>Paste URL</label>
-      <input class="upload" name="image_url" type="text" placeholder="e.g. www.google.com/images/srpr/logo11w.png">
-      <input name="_formname" type="hidden" value="web_form">
-      <!-- <input class="upload" name="image_file" type="file"> -->
-      <!-- <input class="string hidden" name="image_title" type="text" value="df" placeholder="hello">   -->      
-      <span class="help-block">We do not store images that you link to</span>
-      <button type="submit" class="btn btn-primary"><b>Check</b></button>
-    </fieldset>
-  </form>
-</div>
+
+
 
 
 
