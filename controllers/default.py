@@ -48,6 +48,37 @@ def index():
     return dict()
 
 
+def backbone():
+    credentials_path = open(os.path.join(
+        request.folder, 
+        'private', 
+        'mysql_credentials.json'
+    ))    
+    CREDENTIALS = json.load(credentials_path)
+
+    image_form = FORM(
+        INPUT(_name='image_title',_type='text', requires=IS_NOT_EMPTY()),
+        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY())
+    )   
+    matches = []
+    images = []
+
+    if image_form.accepts(request.vars,formname='image_form'):       
+        submitted = image_form.vars.image_file.file
+        name = image_form.vars.image_file.filename
+        hashed = avhash(submitted)
+        matches = checkImages(hashed, CREDENTIALS)
+        if len(matches) == 0:
+            matches = 'None Found'                 
+        session.images = images
+        session.matches = matches
+        redirect(URL('results'))
+    elif image_form.errors:
+        response.flash = 'form has errors'
+        return dict()        
+    return dict()
+
+
 def results():
     return dict(images=session.images, matches=session.matches)
 

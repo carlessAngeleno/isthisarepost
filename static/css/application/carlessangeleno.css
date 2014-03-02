@@ -1,0 +1,18 @@
+body {
+  font: normal normal 13px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
+}
+
+.nav .dropdown-toggle .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+.container a.brand {
+  color: #dddddd;
+}
+
+.navbar-inner .container, .navbar-inverse div.navbar-inner {
+  background-image: linear-gradient(to bottom,#5421bb,#5421bb);
+  background-color: #5421bb;
+  border-color: #5421bb;
+}
