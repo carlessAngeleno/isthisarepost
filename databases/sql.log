@@ -75,3 +75,11 @@ CREATE TABLE auth_user(
     reset_password_key CHAR(512),
     registration_id CHAR(512)
 );
+timestamp: 2014-03-01T18:33:38.254574
+CREATE TABLE images(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title CHAR(512),
+    imageFile CHAR(512),
+    hashed CHAR(512)
+);
+success!
