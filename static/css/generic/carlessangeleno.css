@@ -31,3 +31,16 @@ fieldset legend {
 #main_body {
   margin-top: 41px;
 }
+/*
+@media (min-width: 981px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+*/
+@media (max-width: 1381px) {
+    .navbar-fixed-top
+    {
+    position: fixed;
+    }
+}
