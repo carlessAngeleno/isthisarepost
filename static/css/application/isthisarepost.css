@@ -29,7 +29,7 @@ body {
 }
 
 .nav-pills a {
-  color: rgba(228, 26, 28, 0.7);
+  color: rgba(228, 26, 28, 0.4);
 }
 
 select.mini {
@@ -41,5 +41,5 @@ select.mini {
 }
 
 fieldset div.non_button {
-  min-height: 150px;
+  min-height: 180px;
 }
