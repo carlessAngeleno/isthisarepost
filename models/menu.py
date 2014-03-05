@@ -5,7 +5,7 @@
 ## Customize your APP title, subtitle and menus here
 #########################################################################
 
-response.logo = A('Is This a Repost',
+response.logo = A(XML("&nbsp"), 'Is This a Repost',
                   _class="brand",_href=URL('../..'))
 response.title = 'Is This a Repost'
 response.subtitle = ''
