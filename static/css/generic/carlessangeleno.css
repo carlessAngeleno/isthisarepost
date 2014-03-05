@@ -18,9 +18,10 @@ h1, h2, h3, h4 {
 }
 
 .navbar-inner .container, .navbar-inverse div.navbar-inner {
-  background-image: linear-gradient(to bottom,#e41a1c,#e41a1c);
+  background-image: linear-gradient(to bottom,#e41a1c,#b61516);
   background-color: #e41a1c;
-  border-color: #e41a1c;
+  /*border-color: #e41a1c;*/
+  border-bottom: #881010;
 }
 
 /*** overide web2py.css ***/
