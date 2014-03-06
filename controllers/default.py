@@ -18,6 +18,7 @@ import json
 import pdb
 import tempfile
 import urllib2
+import datetime
 from datetime import date, timedelta
 
 def index():
@@ -45,10 +46,14 @@ def index():
         submitted = image_form.vars.image_file.file
         name = image_form.vars.image_file.filename
 
-        image_time = int(image_form.vars.image_time) - 1       
-        start_date = date.today()-timedelta(days=image_time)
-        start_date = start_date.strftime("%Y-%m-%d")        
-    
+        image_time = int(image_form.vars.image_time) - 1     
+
+        if image_time == 0:
+            start_date = datetime.datetime.now() - timedelta(hours=24)
+            start_date = start_date.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            start_date = date.today()-timedelta(days=image_time)
+            start_date = start_date.strftime("%Y-%m-%d")        
         
         hashed = avhash(submitted)
         matches = checkImages(hashed, start_date, CREDENTIALS)
@@ -60,11 +65,17 @@ def index():
         redirect(URL('results'))
     elif web_form.accepts(request.vars,formname='web_form'):  
         submitted = downloadImage(web_form.vars.image_url)
-
+    
+        
         image_time = int(web_form.vars.image_time) - 1       
-        start_date = date.today()-timedelta(days=image_time)
-        start_date = start_date.strftime("%Y-%m-%d")  
 
+        if image_time == 0:
+            start_date = datetime.datetime.now() - timedelta(hours=24)
+            start_date = start_date.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            start_date = date.today()-timedelta(days=image_time)
+            start_date = start_date.strftime("%Y-%m-%d")  
+        
         hashed = avhash(submitted)
         matches = checkImages(hashed, start_date, CREDENTIALS)
         if len(matches) == 0:
