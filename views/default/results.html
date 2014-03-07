@@ -1,5 +1,7 @@
 {{extend "layout.html"}}
  
+
+ <!-- LEGACY - TARGET FOR REMOVAL -->
  <ol>
 {{for image in images:}}
 	<li>
@@ -14,23 +16,41 @@
 {{pass}}
 </ol>
 
-
+<!-- EXACT MATCHES -->
 <div class="page-header ca_section">
-  {{if matches == 'None Found':}}
+  {{if exact_found:}}
+  <h1>{{=len(matches)}} duplicate(s) found since {{=start_date}} <small>This picture could be a repost</small></h1>    
+  {{else:}}
   <h1>No duplicates found since {{=start_date}}! <small></small></h1>
-  {{elif len(matches) > 0:}}
-  <h1>{{=len(matches)}} duplicate(s) found since {{=start_date}} <small>This picture could be a repost</small></h1>
   {{pass}}
   <a href="{{=URL('index')}}"><button class="btn btn-primary"><b>Go Back</b></button></a>
 </div>
 
 
-{{if matches != 'None Found':}}
+
 <ol>
 	{{for match in matches:}}
 		<li class="ca_section">
 			<a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">
-				<h4>{{=match['title']}} <small>- {{='redditor' if match['account_url'] is None else match['account_url']}}</small></h4>
+				<h4>{{=match['title']}} <small>- {{='redditor' if match['account_url'] is None else match['account_url']}} </small><small>(similarity score: {{=match['similarity']}}%)</small></h4>				
+				<img src="{{=match['link']}}" style="width: 350px;"/>				
+			</a>
+			<p>Appeared at: {{=match['timeAdded']}}</p>
+		</li>	
+	{{pass}}
+</ol>
+
+
+<!-- SIMILAR IMAGES -->
+{{if len(neighbors) > 0:}}
+<div class="page-header ca_section">
+  <h3>Here are some images our algorithm identified as 'similar'<small></small></h3>
+</div>
+<ol>
+	{{for match in neighbors:}}
+		<li class="ca_section">
+			<a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">
+				<h4>{{=match['title']}} <small>- {{='redditor' if match['account_url'] is None else match['account_url']}} </small><small>(similarity score: {{=match['similarity']}}%)</small></h4>				
 				<img src="{{=match['link']}}" style="width: 350px;"/>				
 			</a>
 			<p>Appeared at: {{=match['timeAdded']}}</p>

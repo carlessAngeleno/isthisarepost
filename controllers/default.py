@@ -57,11 +57,22 @@ def index():
         
         hashed = avhash(submitted)
         matches = checkImages(hashed, start_date, CREDENTIALS)
-        if len(matches) == 0:
-            matches = 'None Found'                 
+
+
+        exact_matches = matches['exact_matches']
+        neighbors = matches['neighbors']
+
+        if len(exact_matches) > 0:
+            exact_found = True  
+        else:
+            exact_found = False
+
         session.images = images
-        session.matches = matches
+        session.matches = exact_matches
+        session.neighbors = neighbors           
         session.start_date = start_date
+        session.exact_found = exact_found
+
         redirect(URL('results'))
     elif web_form.accepts(request.vars,formname='web_form'):  
         submitted = downloadImage(web_form.vars.image_url)
@@ -78,13 +89,25 @@ def index():
         
         hashed = avhash(submitted)
         matches = checkImages(hashed, start_date, CREDENTIALS)
-        if len(matches) == 0:
-            matches = 'None Found'                 
+
+        exact_matches = matches['exact_matches']
+        neighbors = matches['neighbors']
+
+        if len(exact_matches) > 0:
+            exact_found = True  
+        else:
+            exact_found = False                     
+
         session.images = images
-        session.matches = matches
-        session.start_date = start_date        
+        session.matches = exact_matches
+        session.neighbors = neighbors
+        session.start_date = start_date
+        session.exact_found = exact_found
+
         os.remove(submitted)
-        redirect(URL('results'))        
+        redirect(URL('results')) 
+
+
     elif image_form.errors:
         response.flash = 'Upload form has errors'
         return dict()        
@@ -137,7 +160,9 @@ def results():
     return dict(
         images=session.images, 
         matches=session.matches, 
-        start_date=session.start_date
+        start_date=session.start_date,
+        neighbors=session.neighbors,
+        exact_found=session.exact_found
     )
 
 
@@ -232,7 +257,7 @@ def create_temporary_copy(path):
     return temp_path        
 
 
-def checkImages(hashed, min_date, credentials):
+def checkImages2(hashed, min_date, credentials):
     db = MySQLdb.connect(
         host=credentials['host'],
         user= credentials['user'],
@@ -247,3 +272,33 @@ def checkImages(hashed, min_date, credentials):
     db.commit()
     db.close()
     return rows
+
+def checkImages(hashed, min_date, credentials):
+    db = MySQLdb.connect(
+        host=credentials['host'],
+        user= credentials['user'],
+        passwd= credentials['password'],
+        db=credentials['db'],
+        cursorclass=MySQLdb.cursors.DictCursor            
+    )    
+    cur = db.cursor()     
+    query = "SELECT * FROM popular WHERE timeAdded > '" + min_date + "' ORDER BY timeAdded DESC;"
+    cur.execute(query)
+    rows = cur.fetchall()
+    db.commit()
+    db.close()
+    exact_matches = []
+    neighbors = []
+    for row in rows:
+        if row['hashed'] is None:
+            continue
+        dist = hamming(long(row['hashed']), hashed)        
+        similarity = (64 - dist) * 100 / 64
+        row['similarity'] = similarity
+        # pdb.set_trace()
+        if long(row['hashed']) == hashed:
+            exact_matches.append(row)
+        elif similarity > 85:
+            neighbors.append(row)
+
+    return dict(exact_matches=exact_matches, neighbors=neighbors)
