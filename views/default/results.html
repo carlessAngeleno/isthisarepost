@@ -14,17 +14,18 @@
 {{pass}}
 </ol>
 
-{{if matches == 'None Found':}}
+
 <div class="page-header ca_section">
+  {{if matches == 'None Found':}}
   <h1>No duplicates found since {{=start_date}}! <small></small></h1>
-</div>
-
-
-{{elif len(matches) > 0:}}
-<div class="page-header ca_section">
+  {{elif len(matches) > 0:}}
   <h1>{{=len(matches)}} duplicate(s) found since {{=start_date}} <small>This picture could be a repost</small></h1>
+  {{pass}}
+  <a href="{{=URL('index')}}"><button class="btn btn-primary"><b>Go Back</b></button></a>
 </div>
 
+
+{{if matches != 'None Found':}}
 <ol>
 	{{for match in matches:}}
 		<li class="ca_section">
@@ -35,5 +36,5 @@
 			<p>Appeared at: {{=match['timeAdded']}}</p>
 		</li>	
 	{{pass}}
-{{pass}}
 </ol>
+{{pass}}
