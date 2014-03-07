@@ -22,31 +22,9 @@ import datetime
 from datetime import date, timedelta
 
 def index():
-    credentials_path = open(os.path.join(
-        request.folder, 
-        'private', 
-        'mysql_credentials.json'
-    ))    
-    CREDENTIALS = json.load(credentials_path)
 
-    image_form = FORM(
-        # INPUT(_name='image_title',_type='text', requires=IS_NOT_EMPTY()),
-        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY()),
-        SELECT(_name='image_time', requires=IS_NOT_EMPTY())
-    )   
-    matches = []
-    images = []
-
-    web_form = FORM(
-        INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY()),
-        SELECT(_name='image_time', requires=IS_NOT_EMPTY())        
-    )
-
-    if image_form.accepts(request.vars,formname='image_form'):       
-        submitted = image_form.vars.image_file.file
-        name = image_form.vars.image_file.filename
-
-        image_time = int(image_form.vars.image_time) - 1     
+    def parseForm(submitted, form):       
+        image_time = int(form.vars.image_time) - 1     
 
         if image_time == 0:
             start_date = datetime.datetime.now() - timedelta(hours=24)
@@ -73,41 +51,35 @@ def index():
         session.start_date = start_date
         session.exact_found = exact_found
 
+    credentials_path = open(os.path.join(
+        request.folder, 
+        'private', 
+        'mysql_credentials.json'
+    ))    
+
+    CREDENTIALS = json.load(credentials_path)
+
+    image_form = FORM(
+        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY()),
+        SELECT(_name='image_time', requires=IS_NOT_EMPTY())
+    )   
+    matches = []
+    images = []
+
+    web_form = FORM(
+        INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY()),
+        SELECT(_name='image_time', requires=IS_NOT_EMPTY())        
+    )
+
+    if image_form.accepts(request.vars,formname='image_form'):   
+        submitted = image_form.vars.image_file.file    
+        parseForm(submitted, image_form)
         redirect(URL('results'))
-    elif web_form.accepts(request.vars,formname='web_form'):  
+    elif web_form.accepts(request.vars,formname='web_form'):         
         submitted = downloadImage(web_form.vars.image_url)
-    
-        
-        image_time = int(web_form.vars.image_time) - 1       
-
-        if image_time == 0:
-            start_date = datetime.datetime.now() - timedelta(hours=24)
-            start_date = start_date.strftime('%Y-%m-%d %H:%M:%S')
-        else:
-            start_date = date.today()-timedelta(days=image_time)
-            start_date = start_date.strftime("%Y-%m-%d")  
-        
-        hashed = avhash(submitted)
-        matches = checkImages(hashed, start_date, CREDENTIALS)
-
-        exact_matches = matches['exact_matches']
-        neighbors = matches['neighbors']
-
-        if len(exact_matches) > 0:
-            exact_found = True  
-        else:
-            exact_found = False                     
-
-        session.images = images
-        session.matches = exact_matches
-        session.neighbors = neighbors
-        session.start_date = start_date
-        session.exact_found = exact_found
-
+        parseForm(submitted, web_form)    
         os.remove(submitted)
-        redirect(URL('results')) 
-
-
+        redirect(URL('results'))
     elif image_form.errors:
         response.flash = 'Upload form has errors'
         return dict()        
@@ -123,37 +95,6 @@ def downloadImage(image_url):
     output = open(outfile, 'wb')
     output.write(imagefile.read())
     return outfile
-
-
-def backbone():
-    credentials_path = open(os.path.join(
-        request.folder, 
-        'private', 
-        'mysql_credentials.json'
-    ))    
-    CREDENTIALS = json.load(credentials_path)
-
-    image_form = FORM(
-        INPUT(_name='image_title',_type='text', requires=IS_NOT_EMPTY()),
-        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY())
-    )   
-    matches = []
-    images = []
-
-    if image_form.accepts(request.vars,formname='image_form'):       
-        submitted = image_form.vars.image_file.file
-        name = image_form.vars.image_file.filename
-        hashed = avhash(submitted)
-        matches = checkImages(hashed, CREDENTIALS)
-        if len(matches) == 0:
-            matches = 'None Found'                 
-        session.images = images
-        session.matches = matches
-        redirect(URL('results'))
-    elif image_form.errors:
-        response.flash = 'form has errors'
-        return dict()        
-    return dict()
 
 
 def results():
@@ -182,6 +123,7 @@ def user():
     to decorate functions that need access control
     """
     return dict(form=auth())
+
 
 @cache.action()
 def download():
