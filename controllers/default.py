@@ -34,7 +34,7 @@ def index():
             start_date = start_date.strftime("%Y-%m-%d")        
         
         hashed = avhash(submitted)
-        matches = checkImagesExactMatchOnly(hashed, start_date, CREDENTIALS)
+        matches = checkImages(hashed, start_date, CREDENTIALS)
 
 
         exact_matches = matches['exact_matches']
@@ -251,6 +251,6 @@ def checkImages(hashed, min_date, credentials):
         # If applicable, store as either exact match or neighbor
         if long(row['hashed']) == hashed:
             exact_matches.append(row)
-        elif similarity > 85:
+        elif similarity > 90:
             neighbors.append(row)
     return dict(exact_matches=exact_matches, neighbors=neighbors)
