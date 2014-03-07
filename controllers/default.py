@@ -34,7 +34,7 @@ def index():
             start_date = start_date.strftime("%Y-%m-%d")        
         
         hashed = avhash(submitted)
-        matches = checkImages(hashed, start_date, CREDENTIALS)
+        matches = checkImagesExactMatchOnly(hashed, start_date, CREDENTIALS)
 
 
         exact_matches = matches['exact_matches']
@@ -51,26 +51,27 @@ def index():
         session.start_date = start_date
         session.exact_found = exact_found
 
+    # MySQL credentials
     credentials_path = open(os.path.join(
         request.folder, 
         'private', 
         'mysql_credentials.json'
     ))    
-
     CREDENTIALS = json.load(credentials_path)
 
+    # Possible forms?
     image_form = FORM(
         INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY()),
         SELECT(_name='image_time', requires=IS_NOT_EMPTY())
     )   
-    matches = []
-    images = []
-
     web_form = FORM(
         INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY()),
         SELECT(_name='image_time', requires=IS_NOT_EMPTY())        
     )
 
+    # Process form
+    matches = []
+    images = []    
     if image_form.accepts(request.vars,formname='image_form'):   
         submitted = image_form.vars.image_file.file    
         parseForm(submitted, image_form)
@@ -192,18 +193,19 @@ def hamming(h1, h2):
     return h
 
 
-def create_temporary_copy(path):
-    temp_dir = tempfile.gettempdir()
-    temp_path = os.path.join(temp_dir, 'temp_file_name')
-    shutil.copy2(path, temp_path)
-    return temp_path        
+# def create_temporary_copy(path):
+#     temp_dir = tempfile.gettempdir()
+#     temp_path = os.path.join(temp_dir, 'temp_file_name')
+#     shutil.copy2(path, temp_path)
+#     return temp_path        
 
 
-def checkImages2(hashed, min_date, credentials):
+def checkImagesExactMatchOnly(hashed, min_date, credentials):
+    # Query
     db = MySQLdb.connect(
         host=credentials['host'],
-        user= credentials['user'],
-        passwd= credentials['password'],
+        user=credentials['user'],
+        passwd=credentials['password'],
         db=credentials['db'],
         cursorclass=MySQLdb.cursors.DictCursor            
     )    
@@ -213,13 +215,20 @@ def checkImages2(hashed, min_date, credentials):
     rows = cur.fetchall()
     db.commit()
     db.close()
-    return rows
+    exact_matches = []
+    # If hash match, similarity = 100
+    for row in rows:
+        row['similarity'] = 100
+        exact_matches.append(row)
+    return dict(exact_matches=exact_matches, neighbors=[])
 
-def checkImages(hashed, min_date, credentials):
+
+def checkImages(hashed, min_date, credentials):    
+    # Query
     db = MySQLdb.connect(
         host=credentials['host'],
-        user= credentials['user'],
-        passwd= credentials['password'],
+        user=credentials['user'],
+        passwd=credentials['password'],
         db=credentials['db'],
         cursorclass=MySQLdb.cursors.DictCursor            
     )    
@@ -229,18 +238,19 @@ def checkImages(hashed, min_date, credentials):
     rows = cur.fetchall()
     db.commit()
     db.close()
+    # Collect
     exact_matches = []
     neighbors = []
     for row in rows:
         if row['hashed'] is None:
             continue
+        # Calc similarity
         dist = hamming(long(row['hashed']), hashed)        
         similarity = (64 - dist) * 100 / 64
         row['similarity'] = similarity
-        # pdb.set_trace()
+        # If applicable, store as either exact match or neighbor
         if long(row['hashed']) == hashed:
             exact_matches.append(row)
         elif similarity > 85:
             neighbors.append(row)
-
     return dict(exact_matches=exact_matches, neighbors=neighbors)
