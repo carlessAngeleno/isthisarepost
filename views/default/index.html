@@ -1,6 +1,6 @@
-{{extend "layout.html"}}
+<?extend "layout.html"?>
 <div class="ca_section">
-  <h3> Any pictures on <a href="http://www.imgur.com" target="_blank"><img src="{{=URL('static', 'images/imgur_logo.png')}}" alt="imgur" style="height: 40px;"></img></a> that match...</h3> 
+  <h3> Any pictures on <a href="http://www.imgur.com" target="_blank"><img src="<?=URL('static', 'images/imgur_logo.png')?>" alt="imgur" style="height: 40px;"></img></a> that match...</h3> 
 </div>
 
 <div class="ca_section">
@@ -61,3 +61,11 @@
     </div>
   </div>
 </div>
+
+<script src="/<?=request.application?>/static/vendor/emberjs/js/libs/jquery-1.10.2.js"></script>
+<script src="/<?=request.application?>/static/vendor/emberjs/js/libs/handlebars-1.1.2.js"></script>
+<script src="/<?=request.application?>/static/vendor/emberjs/js/libs/ember-1.4.0.js"></script>
+<script src="/<?=request.application?>/static/vendor/emberjs/js/libs/ember-data.js"></script> 
+<script src="/<?=request.application?>/static/vendor/emberjs/js/libs/localstorage_adapter.js"></script>   
+<script src="/<?=request.application?>/static/js/application/app.js"></script>
+<script src="/<?=request.application?>/static/js/application/router.js"></script>

@@ -1,4 +1,4 @@
-{{
+<?
 ###
 # response._vars contains the dictionary returned by the controller action
 ###
@@ -13,4 +13,4 @@ except ImportError:
        raise HTTP(405, 'JSON not available')
 except:
        raise HTTP(405, 'JSON error')
-}}
+?>
