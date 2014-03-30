@@ -32,7 +32,7 @@ def index():
         else:
             start_date = date.today()-timedelta(days=image_time)
             start_date = start_date.strftime("%Y-%m-%d")        
-        
+
         hashed = avhash(submitted)
         matches = checkImages(hashed, start_date, CREDENTIALS)
 
