@@ -21,6 +21,8 @@ import urllib2
 import datetime
 from datetime import date, timedelta
 
+response.delimiters = ('<?', '?>')
+
 def index():
 
     def parseForm(submitted, form):       
