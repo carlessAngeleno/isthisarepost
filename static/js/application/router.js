@@ -1,5 +1,6 @@
 App.Router.map(function() {
   // put your routes here
+  this.resource('app', { path: '/' });  
 });
 
 App.IndexRoute = Ember.Route.extend({
