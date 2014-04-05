@@ -104,6 +104,7 @@
     <section id="main" class="main row">
 
       <script type="text/x-handlebars" id="searchForm">  
+
         <div class="ca_section">
           <h3> Any pictures on <a href="http://www.imgur.com" target="_blank"><img src="<?=URL('static', 'images/imgur_logo.png')?>" alt="imgur" style="height: 40px;"></img></a> that match...</h3> 
         </div>
@@ -119,15 +120,12 @@
             <div class="tab-content">
 
               <div class="tab-pane active" id="tab1">
-
+                <div class="span6">
                   <fieldset>
                     <div class="non_button">
                       <!-- <legend>a file from my computer</legend> -->
                       <label>Upload File</label>
-
-                      {{ input type="text" placeholder="placeholder" value=newUrl action="submitUrl"}}
-                
-
+                      {{input type="text" placeholder="placeholder" value=newUrl action="submitUrl"}}              
                       <span class="help-block">We do not store images that you select</span>
                       <label>in the last</label>
                       <select name="image_time" class="mini">
@@ -140,14 +138,24 @@
                       <button type="submit" class="btn btn-large btn-primary"><b>Check</b></button>
                     </p>
                   </fieldset>
-                
+                </div>
+
+                <div class="span4">
                   <h4>Recent Submissions</h4>
                   <ul>
-                    {{#each recentSearches}}                    
-                    <li>{{title}} {{timeframe}} {{timestamp}} {{found}}</li>
-                    
+                    {{#each recentSearches}}                  
+                    <li>
+                      {{title}} in the last {{timeframe}}, submitted at: {{timestamp}} ->
+                      {{#if found:}}
+                      REPOST!
+                      {{else}}
+                      not a repost
+                      {{/if}}
+                    </li>                    
                     {{/each}}
                   </ul>
+                </div>
+
               </div>
 
             </div>
