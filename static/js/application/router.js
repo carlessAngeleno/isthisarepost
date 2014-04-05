@@ -3,8 +3,17 @@ App.Router.map(function() {
   this.resource('app', { path: '/' });  
 });
 
-App.IndexRoute = Ember.Route.extend({
+
+// ... additional lines truncated for brevity ...
+App.AppRoute = Ember.Route.extend({
   model: function() {
-    return ['red', 'yellow', 'blue'];
+    return this.store.find('form');
   }
 });
+
+
+// App.IndexRoute = Ember.Route.extend({
+//   model: function() {
+//     return ['red', 'yellow', 'blue'];
+//   }
+// });
