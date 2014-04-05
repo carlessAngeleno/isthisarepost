@@ -1,9 +1,9 @@
-App.Router.map(function() {
+SearchForm.Router.map(function() {
   // put your routes here
-  this.resource('app', { path: '/' });  
+  this.resource('searchForm', { path: '/' });  
 });
 
-App.IndexRoute = Ember.Route.extend({
+SearchForm.IndexRoute = Ember.Route.extend({
   model: function() {
     return ['red', 'yellow', 'blue'];
   }
