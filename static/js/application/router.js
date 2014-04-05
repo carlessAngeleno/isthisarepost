@@ -10,7 +10,7 @@ SearchForm.SearchFormRoute = Ember.Route.extend({
   model: function() {
     return Em.RSVP.hash({
     	timeframe: this.store.find('timeframe'),
-    	recentSearches: this.store.find('recentSearches')
+    	recentSearch: this.store.find('recentSearch')
     });
   },
 

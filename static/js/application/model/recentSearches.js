@@ -1,4 +1,4 @@
-SearchForm.RecentSearches = DS.Model.extend({
+SearchForm.RecentSearch = DS.Model.extend({
   title: DS.attr('string'),
   timeframe: DS.attr('string'),
   timestamp: DS.attr('string'),
@@ -6,7 +6,7 @@ SearchForm.RecentSearches = DS.Model.extend({
 });
 
 // ... additional lines truncated for brevity ...
-SearchForm.RecentSearches.FIXTURES = [
+SearchForm.RecentSearch.FIXTURES = [
  {
    id: 1,
    title: 'aaa',

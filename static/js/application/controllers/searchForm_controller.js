@@ -5,6 +5,8 @@ SearchForm.SearchFormController = Ember.ArrayController.extend({
       var url = this.get('newUrl');
       if (!url.trim()) { return; }
       console.log(url);
+
+      
       // // Create the new Todo model
       // var todo = this.store.createRecord('todo', {
       //   title: title,
