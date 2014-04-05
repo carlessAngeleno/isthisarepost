@@ -3,8 +3,8 @@ SearchForm.Router.map(function() {
   this.resource('searchForm', { path: '/' });  
 });
 
-SearchForm.IndexRoute = Ember.Route.extend({
+SearchForm.SearchFormRoute = Ember.Route.extend({
   model: function() {
-    return ['red', 'yellow', 'blue'];
+    return this.store.find('timeframe');
   }
 });

@@ -129,11 +129,9 @@
                       <span class="help-block">We do not store images that you select</span>
                       <label>in the last</label>
                       <select name="image_time" class="mini">
-                        <option value="1">24 hours</option>
-                        <option value="2">2 days</option>
-                        <option value="3">3 days</option>
-                        <option value="7">7 days</option>
-                        <option value="30">30 days</option>
+                        {{#each}}
+                        <option>{{title}}</option>
+                        {{/each}}
                       </select> 
                     </div>
                     <p style="padding: 50px;">    
