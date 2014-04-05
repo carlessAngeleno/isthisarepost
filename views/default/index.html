@@ -130,7 +130,7 @@
                       <label>in the last</label>
                       <select name="image_time" class="mini">
                         {{#each}}
-                        <option>{{title}}</option>
+                        <option {{bind-attr class="selected:active"}}>{{title}}</option>
                         {{/each}}
                       </select> 
                     </div>
