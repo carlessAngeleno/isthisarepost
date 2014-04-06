@@ -18,7 +18,6 @@ SearchForm.SearchFormRoute = Ember.Route.extend({
     // You can use model.post to get post, etc
     // Since the model is a plain object you can just use setProperties
     controller.setProperties(model);
-    console.log(model);
   }
 
 // App.PostRoute = Em.Route.extend({

@@ -102,68 +102,6 @@
   <div id="main_body" class="container">
 
     <section id="main" class="main row">
-
-      <script type="text/x-handlebars" id="searchForm">  
-
-        <div class="ca_section">
-          <h3> Any pictures on <a href="http://www.imgur.com" target="_blank"><img src="<?=URL('static', 'images/imgur_logo.png')?>" alt="imgur" style="height: 40px;"></img></a> that match...</h3> 
-        </div>
-
-        <div class="ca_section">
-          <div class="tabbable"> <!-- Only required for left/right tabs -->
-
-            <ul class="nav nav-pills">
-              <li class="active"><a href="#tab1" data-toggle="tab"><h4>A FILE FROM MY COMPUTER</h4></a></li>
-              <li><a href="#tab2" data-toggle="tab"><h4>AN IMAGE FROM THE WEB</h4></a></li>
-            </ul>
-
-            <div class="tab-content">
-
-              <div class="tab-pane active" id="tab1">
-                <div class="span6">
-                  <fieldset>
-                    <div class="non_button">
-                      <!-- <legend>a file from my computer</legend> -->
-                      <label>Upload File</label>
-                      {{input type="text" placeholder="placeholder" value=newUrl action="submitUrl"}}              
-                      <span class="help-block">We do not store images that you select</span>
-                      <label>in the last</label>
-                      <select name="image_time" class="mini">
-                        {{#each timeframe}}
-                        <option {{bind-attr class="selected:active"}}>{{title}}</option>
-                        {{/each}}
-                      </select> 
-                    </div>
-                    <p style="padding: 50px;">    
-                      <button type="submit" class="btn btn-large btn-primary"><b>Check</b></button>
-                    </p>
-                  </fieldset>
-                </div>
-
-                <div class="span4">
-                  <h4>Recent Submissions</h4>
-                  <ul>
-                    {{#each recentSearch}}                  
-                    <li>
-                      {{title}} in the last {{timeframe}}, submitted at: {{timestamp}} ->
-                      {{#if found:}}
-                      REPOST!
-                      {{else}}
-                      not a repost
-                      {{/if}}
-                    </li>                    
-                    {{/each}}
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </script>
-
-
     </section><!--/main-->
 
     <!-- Footer ================================================== -->
@@ -198,6 +136,10 @@
   <script src="/<?=request.application?>/static/js/application/model/timeframe.js"></script>
   <script src="/<?=request.application?>/static/js/application/model/recentSearches.js"></script>    
   <script src="/<?=request.application?>/static/js/application/controllers/searchForm_controller.js"></script>
+  <script src="/<?=request.application?>/static/js/application/controllers/timeframe_controller.js"></script>  
+
+  <? include "application/searchForm.html" ?>
+
   <!--[if lt IE 7 ]>
       <script src="<?=URL('static','js/dd_belatedpng.js')?>"></script>
       <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>

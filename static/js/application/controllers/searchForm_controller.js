@@ -1,23 +1,31 @@
 SearchForm.SearchFormController = Ember.ArrayController.extend({
+    
   actions: {
     submitUrl: function() {
-      // Get the todo title set by the "New Todo" text field
+      // Get the URL set by the "New Url" text field
       var url = this.get('newUrl');
       if (!url.trim()) { return; }
-      console.log(url);
-
       
-      // // Create the new Todo model
-      // var todo = this.store.createRecord('todo', {
-      //   title: title,
-      //   isCompleted: false
-      // });
+      var timeframe = this.timeframe.filterBy('selected', true);
+      newTimeframe = timeframe[0].get('title');
 
-      // // Clear the "New Todo" text field
-      // this.set('newTitle', '');
+      // Create the new recentSearch model
+      var recentSearch = this.store.createRecord('recentSearch', {
+        title: url,
+        timeframe: newTimeframe,
+        timestamp: new Date(),
+        found: false
+      });
 
-      // // Save the new model
-      // todo.save();
+      // Clear the "New Url" text field
+      this.set('newUrl', '');
+
+      // Save the new model
+      recentSearch.save();
     }
-  }
+  },
+
+  remaining: function() {
+    return this.timeframe.filterBy('selected', false).get('length');
+  }.property('timeframe.@each.selected')
 });

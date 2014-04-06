@@ -16,7 +16,7 @@ SearchForm.Timeframe.FIXTURES = [
    id: 2,
    title: '2 days',
    value: '2',
-   selected: false
+   selected: true
  },
  {
    id: 3,
