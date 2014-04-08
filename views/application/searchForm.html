@@ -1,0 +1,68 @@
+<script type="text/x-handlebars" id="searchForm">  
+
+  <div class="ca_section">
+    <h3> Any pictures on <a href="http://www.imgur.com" target="_blank"><img src="<?=URL('static', 'images/imgur_logo.png')?>" alt="imgur" style="height: 40px;"></img></a> that match...</h3> 
+  </div>
+
+  <div class="ca_section">
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#tab1" data-toggle="tab"><h4>A FILE FROM MY COMPUTER</h4></a></li>
+        <li><a href="#tab2" data-toggle="tab"><h4>AN IMAGE FROM THE WEB</h4></a></li>
+      </ul>
+
+      <div class="tab-content">
+
+        <div class="tab-pane active" id="tab1">
+          <div class="span6">
+            <div class="non_button">
+
+              <label>Upload File</label>
+
+              {{input type="text" placeholder="placeholder" value=newUrl action="submitUrl"}}              
+              <span class="help-block">We do not store images that you select</span>
+              <label>in the last</label>
+
+              <ul>
+                {{#each timeframe itemController="timeframe"}}
+                <li {{bind-attr class="selected:active"}}>
+                  {{input type="checkbox" checked=selected class="toggle"}}
+                  <label>{{title}}</label>
+                </li>
+                {{/each}}
+              </ul>
+
+              <span id="todo-count">
+                <strong>{{remaining}}</strong> left
+              </span>
+
+            </div>
+            <p style="padding: 50px;">    
+              <button type="submit" class="btn btn-large btn-primary"><b>Check</b></button>
+            </p>
+
+          </div>
+
+          <div class="span4">
+            <h4>Recent Submissions</h4>
+            <ul>
+              {{#each recentSearch}}                  
+              <li>
+                {{title}} in the last {{timeframe}}, submitted at: {{timestamp}} ->
+                {{#if found:}}
+                REPOST!
+                {{else}}
+                not a repost
+                {{/if}}
+              </li>                    
+              {{/each}}
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</script>
