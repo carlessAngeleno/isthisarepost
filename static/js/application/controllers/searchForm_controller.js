@@ -27,5 +27,11 @@ SearchForm.SearchFormController = Ember.ArrayController.extend({
 
   remaining: function() {
     return this.timeframe.filterBy('selected', false).get('length');
-  }.property('timeframe.@each.selected')
+  }.property('timeframe.@each.selected'),
+
+  inflection: function() {
+    var remaining = this.get('remaining');
+    return remaining === 1 ? 'choice' : 'choices';
+  }.property('remaining')
+
 });
