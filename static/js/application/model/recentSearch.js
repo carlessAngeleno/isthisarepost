@@ -19,7 +19,7 @@ SearchForm.RecentSearch.FIXTURES = [
    title: 'bbb',
    timeframe: '24 hours',
    timestamp: '2',
-   found: false
+   found: true
  },
  {
    id: 3,

@@ -26,7 +26,7 @@
 
               <ul>
                 {{#each timeframe itemController="timeframe"}}
-                <li {{bind-attr class="selected:active"}}>
+                <li {{bind-attr class="selected:active"}} >
                   {{input type="checkbox" checked=selected class="toggle"}}
                   <label>{{title}}</label>
                 </li>
@@ -47,8 +47,8 @@
           <div class="span4">
             <h4>Recent Submissions</h4>
             <ul>
-              {{#each recentSearch}}                  
-              <li>
+              {{#each recentSearch itemController="recentSearch"}}                  
+              <li {{bind-attr class="found:active"}} >
                 {{title}} in the last {{timeframe}}, submitted at: {{timestamp}} ->
                 {{#if found:}}
                 REPOST!

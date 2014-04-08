@@ -4,10 +4,11 @@ SearchForm.Router.map(function() {
 });
 
 SearchForm.SearchFormRoute = Ember.Route.extend({
-  // http://stackoverflow.com/a/19466975
-  // http://stackoverflow.com/a/19466975
   
   model: function() {
+    // Why Em.RSVP.hash() ?
+    // http://stackoverflow.com/a/19466975
+    // http://stackoverflow.com/a/19466975    
     return Em.RSVP.hash({
     	timeframe: this.store.find('timeframe'),
     	recentSearch: this.store.find('recentSearch')
@@ -19,15 +20,4 @@ SearchForm.SearchFormRoute = Ember.Route.extend({
     // Since the model is a plain object you can just use setProperties
     controller.setProperties(model);
   }
-
-// App.PostRoute = Em.Route.extend({
-//   model: function(params) {
-//     return Em.RSVP.hash({
-//       post:     // promise to get post
-//       comments: // promise to get comments,
-//       user:     // promise to get user
-//     });
-//   },
-
-
 });
