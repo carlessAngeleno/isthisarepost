@@ -50,7 +50,7 @@
               {{#each recentSearch itemController="recentSearch"}}                  
               <li {{bind-attr class="found:active"}} >
                 {{title}} in the last {{timeframe}}, submitted at: {{timestamp}} ->
-                {{#if found:}}
+                {{#if found}}
                 REPOST!
                 {{else}}
                 not a repost
