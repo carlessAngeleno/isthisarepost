@@ -9,21 +9,21 @@ SearchForm.RecentSearch = DS.Model.extend({
 SearchForm.RecentSearch.FIXTURES = [
  {
    id: 1,
-   title: 'aaa',
+   title: 'http://www.google.com',
    timeframe: '24 hours',
    timestamp: '1',
    found: false
  },
  {
    id: 2,
-   title: 'bbb',
+   title: 'http://www.yahoo.com',
    timeframe: '24 hours',
    timestamp: '2',
    found: true
  },
  {
    id: 3,
-   title: 'ccc',
+   title: 'http://www.aol.com',
    timeframe: '24 hours',
    timestamp: '3',
    found: false

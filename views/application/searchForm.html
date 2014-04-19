@@ -49,7 +49,7 @@
             <ul>
               {{#each recentSearch itemController="recentSearch"}}                  
               <li {{bind-attr class="found:active"}} >
-                {{title}} in the last {{timeframe}}, submitted at: {{timestamp}} ->
+                <a {{bind-attr href=title}} target="_blank"> {{title}} </a> in the last {{timeframe}}, submitted at: {{timestamp}} ->
                 {{#if found}}
                 REPOST!
                 {{else}}
