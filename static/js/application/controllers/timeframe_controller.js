@@ -1,6 +1,4 @@
 SearchForm.TimeframeController = Ember.ObjectController.extend({
-  
-  needs: ['searchForm'],
 
   selected: function(key, value) {
     
@@ -15,7 +13,7 @@ SearchForm.TimeframeController = Ember.ObjectController.extend({
       model.save();
       
       // de-select rest (only 1 active allowed)
-      var timeframes = this.get('controllers.searchForm.timeframe');
+      var timeframes = this.get('parentController.timeframe');
       timeframes.forEach(
         function(timeframe) {
           if (timeframe.id !== this.id) {
