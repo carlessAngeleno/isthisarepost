@@ -27,8 +27,10 @@
               <ul>
                 {{#each timeframe itemController="timeframe"}}
                 <li {{bind-attr class="selected:active"}} >
-                  {{input type="checkbox" checked=selected class="toggle"}}
-                  <label>{{title}}</label>
+                  <label>
+                    {{input type="checkbox" checked=selected class="toggle"}}
+                    {{title}}
+                  </label>
                 </li>
                 {{/each}}
               </ul>
