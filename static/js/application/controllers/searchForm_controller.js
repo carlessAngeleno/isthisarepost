@@ -5,6 +5,12 @@ SearchForm.SearchFormController = Ember.ArrayController.extend({
       // Get the URL set by the "New Url" text field
       var url = this.get('newUrl');
       if (!url.trim()) { return; }
+
+      var prefix = 'http://';
+
+      if (url.slice(0, prefix.length) !== prefix) {
+        url = prefix + url;
+      }
       
       var timeframe = this.timeframe.filterBy('selected', true);
       newTimeframe = timeframe[0].get('title');
