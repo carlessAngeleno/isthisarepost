@@ -1,11 +1,34 @@
+/******************************************************************************/
+
+  /** HELPERS **/
+
+// http://stackoverflow.com/a/1909508
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+
+/******************************************************************************/
+
+  /** UPLOAD IMAGE FROM COMPUTER **/
+
+$('#file_uploader').change(function() {
+  handleFiles(this.files, '#upload_canvas');
+});
+
 function handleFiles(files, canvas_sel) {
   // Modified from 
   // https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
+  $(canvas_sel).empty();
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
     var imageType = /image.*/;
     
     if (!file.type.match(imageType)) {
+      $(canvas_sel).html('<h4>Not a valid image file</h4>');
       continue;
     }
     
@@ -19,3 +42,37 @@ function handleFiles(files, canvas_sel) {
     reader.readAsDataURL(file);
   }
 }
+
+/******************************************************************************/
+
+  /** LINK IMAGE ON THE WEB**/
+
+$('#link_input').keyup(function() {
+    var input = this;
+    delay(function(){
+      updateLinkCanvas($(input).val(), "#link_canvas");
+    }, 500 );
+});
+
+function updateLinkCanvas(url, canvas_sel) {
+  $(canvas_sel).empty();
+
+  $.ajax({
+    type: 'HEAD',
+    url: url,
+    success: function() {
+      renderLinkCanvas(url, canvas_sel);
+    },
+    error: function() {
+      $(canvas_sel).html('<h4>Not a valid image URL</h4>');  
+    }
+  });
+}
+
+function renderLinkCanvas(url, canvas_sel) {
+  var img = document.createElement("img");
+  img.src = url;
+  $(canvas_sel).append(img);
+}
+
+/******************************************************************************/
