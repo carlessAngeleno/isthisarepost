@@ -17,8 +17,9 @@
               <!-- <legend>a file from my computer</legend> -->
               <label>Upload File</label>
               <input name="_formname" type="hidden" value="image_form">
-              <input class="upload" name="image_file" type="file">
+              <input id="file_uploader" class="upload" name="image_file" type="file" onchange="handleFiles(this.files, '#upload_canvas')">
               <span class="help-block">We do not store images that you select</span>
+              <div id="upload_canvas" class="canvas"></div>
               <label>in the last</label>
               <select name="image_time" class="mini">
                 <option value="1">24 hours</option>

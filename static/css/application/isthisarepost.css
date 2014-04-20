@@ -43,3 +43,7 @@ select.mini {
 fieldset div.non_button {
   min-height: 180px;
 }
+
+div.canvas img {
+  max-height: 200px;
+}
