@@ -47,7 +47,7 @@ function handleFiles(files, canvas_sel) {
 
   /** LINK IMAGE ON THE WEB**/
 
-$('#link_input').keyup(function() {
+$('#link_input').on('paste keyup', function() {
     var input = this;
     delay(function(){
       updateLinkCanvas($(input).val(), "#link_canvas");
