@@ -1,15 +1,15 @@
 .ca_section {
-  margin: 3px;
+  margin: 6px;
   padding: 40px;
   background-color: rgb(255, 253, 253);
-  border: 1px solid #e6e6e6;
-  max-width: 800px;
+  border: 1px solid rgba(249,209,209, 0.5);
+  max-width: 1170px;
   margin-right: auto;
   margin-left: auto;
 }
 
 body {
-  background-color: rgb(247, 241, 241);
+  background-color: rgb(253, 241, 241);
 }
 
 .tab-content {
@@ -28,11 +28,19 @@ body {
 }
 
 .nav-pills>.active>a, .nav-pills>.active>a:hover {
-  background-color: rgba(228, 26, 28, 0.9);  
+  background-color: rgba(205, 23, 25, 1);  
 }
 
 .nav-pills a {
-  color: rgba(228, 26, 28, 0.4);
+  color: rgba(205, 23, 25, 0.4);
+}
+
+.nav-pills a:hover {
+  color: rgba(205, 23, 25, 0.8);
+}
+
+.nav-pills>li>a {
+  border-radius: 0px;
 }
 
 select.mini {

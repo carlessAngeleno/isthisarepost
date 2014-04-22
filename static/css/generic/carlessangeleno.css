@@ -18,15 +18,16 @@ h1, h2, h3, h4 {
 }
 
 .navbar-inner .container, .navbar-inverse div.navbar-inner {
-  background-image: linear-gradient(to bottom,#e41a1c,#cd1719);
-  background-color: #e41a1c;
+  /*background-image: linear-gradient(to bottom,#e41a1c,#cd1719);*/
+  background-image: none;
+  background-color: rgba(205, 23, 25, 1);
   
   
 }
 .navbar-inverse div.navbar-inner  {
-  -webkit-box-shadow: 0 0 5px rgba(68, 8, 8, 0.76);
-  box-shadow: 0 0 5px rgba(68, 8, 8, 0.76);
-  border-color: #881010;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: rgba(205, 23, 25, 1);
 }
 
 /*** overide web2py.css ***/
@@ -49,4 +50,27 @@ fieldset legend {
     {
     position: fixed;
     }
+}
+
+button.ca_button, button.ca_button:hover {
+  background-image: none;  
+  border-radius: 4px;
+  color: #ffffff;
+  border: none;  
+  padding: 4px 12px;
+  font-size: 14px;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+}
+
+button.ca_button {
+  background-color: rgba(205, 23, 25, 1);  
+}
+
+button.ca_button:hover {
+  background-color: rgba(159,18,19, 1);  
+}
+
+button.ca_button_large, button.ca_button_large:hover {
+  padding: 13px 21px;
+  font-size: 17.5px;  
 }
