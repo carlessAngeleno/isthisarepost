@@ -9,7 +9,7 @@
       <li class="active"><a href="#tab1" data-toggle="tab"><h4>a file from my device</h4></a></li>
       <li><a href="#tab2" data-toggle="tab"><h4>an image from the web</h4></a></li>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content row-fluid">
       <div class="tab-pane active" id="tab1">
         <form id="image_form" action="" enctype="multipart/form-data" method="post">
           <fieldset>
@@ -40,10 +40,18 @@
           <fieldset>
             <div class="non_button">            
               <!-- <legend>an image from the web</legend> -->
-              <label>Paste URL</label>
-              <input id="link_input" class="upload" name="image_url" type="text" placeholder="e.g. www.google.com/images/srpr/logo11w.png">
-              <input name="_formname" type="hidden" value="web_form">   
-              <span class="help-block">We do not store images that you link to</span>
+              <div>
+                <label>Paste URL</label>
+                <input id="link_input" class="upload" name="image_url" type="text" placeholder="e.g. www.google.com/images/srpr/logo11w.png">
+                <input name="_formname" type="hidden" value="web_form">   
+                <span class="help-block">We do not store images that you link to</span>
+              </div>
+              <div id="sample_links">
+                <label>or pick one of the below samples</label>
+                <ul>
+                  <li><a class="sample_link">http://i.imgur.com/1RtPQIi.gif</a></li>
+                </ul>
+              </div>
               <div id="link_canvas" class="canvas"></div>
               <label>in the last</label>
               <select name="image_time" class="mini">

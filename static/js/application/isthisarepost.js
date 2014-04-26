@@ -47,7 +47,7 @@ function handleFiles(files, canvas_sel) {
 
   /** LINK IMAGE ON THE WEB**/
 
-$('#link_input').on('paste keyup', function() {
+$('#link_input').on('paste keyup change', function() {
     var input = this;
     delay(function(){
       updateLinkCanvas($(input).val(), "#link_canvas");
@@ -74,5 +74,10 @@ function renderLinkCanvas(url, canvas_sel) {
   img.src = url;
   $(canvas_sel).append(img);
 }
+
+// Populate input with sample link on page
+$('a.sample_link').click(function() {
+  $('#link_input').val(this.text).change();
+})
 
 /******************************************************************************/
