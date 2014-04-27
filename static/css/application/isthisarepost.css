@@ -28,11 +28,12 @@ body {
 }
 
 .nav-pills>.active>a, .nav-pills>.active>a:hover {
-  background-color: rgba(205, 23, 25, 1);  
+  background-color: rgba(205, 23, 25, 0.9);  
 }
 
 .nav-pills a {
   color: rgba(205, 23, 25, 0.4);
+  background-color: rgba(205, 23, 25, 0.05);
 }
 
 .nav-pills a:hover {
