@@ -6,8 +6,8 @@
 <div class="ca_section">
   <div class="tabbable"> <!-- Only required for left/right tabs -->
     <ul class="nav nav-pills">
-      <li class="active"><a href="#tab1" data-toggle="tab"><h4>a file from my device</h4></a></li>
-      <li><a href="#tab2" data-toggle="tab"><h4>an image from the web</h4></a></li>
+      <li class="active"><a href="#tab1" data-toggle="tab"><h4><i class="icon-folder-open icon-white"></i> a file from my device</h4></a></li>
+      <li><a href="#tab2" data-toggle="tab"><h4><i class="icon-globe icon-white"></i> an image from the web</h4></a></li>
     </ul>
     <div class="tab-content row-fluid">
       <div class="tab-pane active" id="tab1">
@@ -15,12 +15,12 @@
           <fieldset>
             <div class="non_button">
               <!-- <legend>a file from my computer</legend> -->
-              <label>Upload File</label>
+              <label><i class="icon-upload"></i> Upload File</label>
               <input name="_formname" type="hidden" value="image_form">
               <input id="file_uploader" class="upload" name="image_file" type="file">
               <span class="help-block">We do not store images that you select</span>
               <div id="upload_canvas" class="canvas"></div>
-              <label>in the last</label>
+              <label><i class="icon-calendar"></i> in the last</label>
               <select name="image_time" class="mini">
                 <option value="1">24 hours</option>
                 <option value="2">2 days</option>
@@ -28,7 +28,7 @@
                 <option value="7">7 days</option>
                 <option value="30">30 days</option>
               </select> 
-            </div>
+            </div>            
             <p style="padding: 50px;">    
               <button type="submit" class="ca_button ca_button_large"><b>Check</b></button>
             </p>
@@ -41,19 +41,19 @@
             <div class="non_button">            
               <!-- <legend>an image from the web</legend> -->
               <div>
-                <label>Paste URL</label>
+                <label><i class="icon-edit"></i> Paste URL</label>
                 <input id="link_input" class="upload" name="image_url" type="text" placeholder="e.g. www.google.com/images/srpr/logo11w.png">
                 <input name="_formname" type="hidden" value="web_form">   
-                <span class="help-block">We do not store images that you link to</span>
               </div>
               <div id="sample_links">
-                <label>or pick one of the below samples</label>
+                <label>(or pick one of the below samples)</label>
                 <ul>
                   <li><a class="sample_link">http://i.imgur.com/1RtPQIi.gif</a></li>
                 </ul>
               </div>
+              <span class="help-block">We do not store images that you link to</span>              
               <div id="link_canvas" class="canvas"></div>
-              <label>in the last</label>
+              <label><i class="icon-calendar"></i> in the last</label>
               <select name="image_time" class="mini">
                 <option value="1">24 hours</option>
                 <option value="2">2 days</option>
