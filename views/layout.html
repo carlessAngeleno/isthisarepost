@@ -32,7 +32,7 @@
         user-scalable = yes allows the user to zoom in -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">
   <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables
@@ -82,9 +82,9 @@
           <span class="icon-bar"></span>
         </button> -->
 
-        <a class="brand" style="background-color: none;">
+        <a class="brand icon" style="background-color: none;" href="{{=URL('../..')}}">
           {{=XML("&nbsp&nbsp")}}
-          <img src="{{=URL('static', 'images/favicon_inverted.ico')}}" style="width: 25px;"/>
+          <img src="{{=URL('static', 'images/favicon.png')}}"/>
         </a>
         {{=response.logo or ''}}        
         <!-- <ul id="navbar" class="nav pull-right hidden">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul> -->
