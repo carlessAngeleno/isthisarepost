@@ -32,6 +32,11 @@ h1, h2, h3, h4 {
   text-shadow: none;
 }
 
+.navbar a.brand.icon img {
+  width: 25px; 
+  border:1px solid rgba(249,209,209, 0.8); 
+  border-radius: 3px;
+}
 
 /*** overide web2py.css ***/
 fieldset legend {
