@@ -34,7 +34,6 @@ h1, h2, h3, h4 {
 
 .navbar-inverse .brand, .navbar-inverse .nav>li>a {
   text-shadow: none;
-  margin-left: -18px;
 }
 
 .navbar a.brand.icon img {
