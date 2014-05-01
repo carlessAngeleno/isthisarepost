@@ -51,7 +51,7 @@ $('#link_input').on('paste keyup change', function() {
     var input = this;
     delay(function(){
       updateLinkCanvas($(input).val(), "#link_canvas");
-    }, 500 );
+    }, 250 );
 });
 
 function updateLinkCanvas(url, canvas_sel) {
