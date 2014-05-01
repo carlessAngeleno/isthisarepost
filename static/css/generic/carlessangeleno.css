@@ -17,6 +17,10 @@ h1, h2, h3, h4 {
   color: #ffffff;
 }
 
+.container a.brand:hover {
+  font-style: italic;
+}
+
 .navbar-inner .container, .navbar-inverse div.navbar-inner {
   background-image: none;
   background-color: rgba(205, 23, 25, 1);  
@@ -36,6 +40,10 @@ h1, h2, h3, h4 {
   width: 25px; 
   border:1px solid rgba(249,209,209, 0.8); 
   border-radius: 3px;
+}
+
+.navbar a.brand.icon img:hover {
+  border-radius: 0px;
 }
 
 /*** overide web2py.css ***/
