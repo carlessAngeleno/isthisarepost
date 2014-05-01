@@ -56,23 +56,22 @@ $('#link_input').on('paste keyup change', function() {
 
 function updateLinkCanvas(url, canvas_sel) {
   $(canvas_sel).empty();
-
-  $.ajax({
-    type: 'HEAD',
-    url: url,
-    success: function() {
-      renderLinkCanvas(url, canvas_sel);
-    },
-    error: function() {
-      $(canvas_sel).html('<h4>Not a valid image URL</h4>');  
-    }
-  });
+ 
+  // Validate url before deciding what to do
+  var img = new Image();  
+  img.onerror = function() { renderLinkCanvas(url, canvas_sel, false); }
+  img.onload =  function() { renderLinkCanvas(url, canvas_sel, true); }  
+  img.src = url
 }
 
-function renderLinkCanvas(url, canvas_sel) {
-  var img = document.createElement("img");
-  img.src = url;
-  $(canvas_sel).append(img);
+function renderLinkCanvas(url, canvas_sel, valid) {
+  if (valid) {
+    var img = document.createElement("img");
+    img.src = url;
+    $(canvas_sel).append(img);
+  } else {
+    $(canvas_sel).html('<h4>Not a valid image URL</h4>'); 
+  }
 }
 
 // Populate input with sample link on page
@@ -80,4 +79,3 @@ $('a.sample_link').click(function() {
   $('#link_input').val(this.text).change();
 })
 
-/******************************************************************************/
