@@ -95,3 +95,16 @@ button.ca_button_large, button.ca_button_large:hover {
   font-size: 17.5px;  
   min-width: 80px;
 }
+
+
+/* Center bootstrap navs (http://stackoverflow.com/a/9422253) */
+.nav-tabs.centered > li, .nav-pills.centered > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs.centered, .nav-pills.centered {
+    text-align:center;
+}
