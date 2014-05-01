@@ -28,6 +28,10 @@ body {
   margin-right: auto;
 }
 
+#link_input {
+  max-width: 220px;
+}
+
 .nav-pills>.active>a, .nav-pills>.active>a:hover {
   background-color: rgba(205, 23, 25, 0.9);  
 }
@@ -55,6 +59,10 @@ select.mini {
 
 fieldset div.non_button {
   min-height: 240px;
+}
+
+div.canvas {
+  text-align: center;
 }
 
 div.canvas img {
