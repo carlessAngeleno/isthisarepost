@@ -81,4 +81,5 @@ button.ca_button:hover {
 button.ca_button_large, button.ca_button_large:hover {
   padding: 13px 21px;
   font-size: 17.5px;  
+  min-width: 80px;
 }
