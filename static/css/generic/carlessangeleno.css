@@ -107,3 +107,68 @@ button.ca_button_large, button.ca_button_large:hover {
 .nav-tabs.centered, .nav-pills.centered {
     text-align:center;
 }
+
+.ca_section {
+  margin: 6px;
+  padding: 30px;
+  background-color: rgb(255, 253, 253);
+  border: 1px solid rgba(249,209,209, 0.4);
+  /*max-width: 590px;*/
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 5px;
+}
+
+body {
+  background-color: rgb(253, 241, 241);
+}
+
+.tab-content {
+  overflow: visible;
+  min-height: 380px;
+}
+
+.nav-pills>.active>a, .nav-pills>.active>a:hover {
+  background-color: rgba(205, 23, 25, 0.9);  
+}
+
+.nav-pills a {
+  color: rgba(205, 23, 25, 0.4);
+  background-color: rgba(205, 23, 25, 0.05);
+}
+
+.nav-pills a:hover {
+  color: rgba(205, 23, 25, 0.8);
+}
+
+.nav-pills>li>a {
+  border-radius: 2px;
+}
+
+select.mini {
+  max-width: 120px;
+}
+
+.navbar .brand {
+  padding-right: 2px;
+}
+
+fieldset div.non_button {
+  min-height: 240px;
+}
+
+div.canvas {
+  text-align: center;
+}
+
+div.canvas img {
+  max-height: 200px;
+}
+
+/*http://stackoverflow.com/a/9649914*/
+.centered-pills { text-align:center; }
+.centered-pills ul.nav-pills { display:inline-block; }
+.centered-pills li { display:inline; }
+.centered-pills a { float:left; }
+* html .centered-pills ul.nav-pills { display:inline; } /* IE6 */
+*+html .centered-pills ul.nav-pills { display:inline; } /* IE7 */
