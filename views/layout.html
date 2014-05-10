@@ -88,7 +88,7 @@
         </a>
         {{=response.logo or ''}}        
         <!-- <ul id="navbar" class="nav pull-right hidden">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul> -->
-        {{include 'generic/also_by.html'}}  
+        {{include '../../shared/views/generic/also_by.html'}}  
         <div class="{{='nav-collapse' if is_mobile else 'nav pull-right'}}">
                           
           {{if response.menu:}}
