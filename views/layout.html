@@ -46,7 +46,7 @@
   response.files.insert(2,URL('static','css/bootstrap-responsive.min.css'))
   response.files.insert(3,URL('static','css/web2py_bootstrap.css'))
   response.files.insert(5,URL('static','css/generic/carlessangeleno.css'))
-  response.files.insert(6,URL('static','css/application/isthisarepost.css'))
+  response.files.insert(6,URL('static','css/application/app.css'))
   }}
 
   {{include 'web2py_ajax.html'}}
@@ -150,7 +150,7 @@
        (Placed at the end of the document so the pages load faster) -->
   <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
   <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
-  <script src="{{=URL('static','js/application/isthisarepost.js')}}"></script>
+  <script src="{{=URL('static','js/application/app.js')}}"></script>
   {{include "application/modals.html"}}
   <!--[if lt IE 7 ]>
       <script src="{{=URL('static','js/dd_belatedpng.js')}}"></script>
