@@ -61,11 +61,11 @@ def index():
 
     # Possible forms?
     image_form = FORM(
-        INPUT(_name='image_file',_type='file', requires=IS_NOT_EMPTY()),
+        INPUT(_name='image_file',_type='file', requires=IS_IMAGE()),
         SELECT(_name='image_time', requires=IS_NOT_EMPTY())
     )   
     web_form = FORM(
-        INPUT(_name='image_url',_type='text', requires=IS_NOT_EMPTY()),
+        INPUT(_name='image_url',_type='text', requires=IS_URL()),
         SELECT(_name='image_time', requires=IS_NOT_EMPTY())        
     )
 
@@ -78,6 +78,11 @@ def index():
         redirect(URL('results'))
     elif web_form.accepts(request.vars,formname='web_form'):         
         submitted = downloadImage(web_form.vars.image_url)
+        try:
+            Image.open(submitted)
+        except IOError:
+            response.flash = 'Web form has errors'
+            return dict()            
         parseForm(submitted, web_form)    
         os.remove(submitted)
         redirect(URL('results'))
