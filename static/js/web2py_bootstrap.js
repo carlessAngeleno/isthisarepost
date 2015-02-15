@@ -1,9 +1,9 @@
 // this code improves bootstrap menus and adds dropdown support
 jQuery(function(){
-  jQuery('.nav>li>a').each(function(){
-    if(jQuery(this).parent().find('ul').length)
-      jQuery(this).attr({'class':'dropdown-toggle','data-toggle':'dropdown'}).append('<b class="caret"></b>');
-  });
+  // jQuery('.nav>li>a').each(function(){
+  //   if(jQuery(this).parent().find('ul').length)
+  //     jQuery(this).attr({'class':'dropdown-toggle','data-toggle':'dropdown'}).append('<b class="caret"></b>');
+  // });
   jQuery('.nav li li').each(function(){
     if(jQuery(this).find('ul').length)
       jQuery(this).addClass('dropdown-submenu');
@@ -27,7 +27,7 @@ jQuery(function(){
         mi.children('.dropdown-menu').stop(true, true).delay(200).fadeOut(function(){mi.removeClass('open')});
     });
   }
-  hoverMenu(); // first page load
-  jQuery(window).resize(hoverMenu); // on resize event
+  // hoverMenu(); // first page load
+  // jQuery(window).resize(hoverMenu); // on resize event
   // jQuery('ul.nav li.dropdown a').click(function(){window.location=jQuery(this).attr('href');});
 });
