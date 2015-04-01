@@ -51,6 +51,8 @@ def index():
         session.start_date = start_date
         session.exact_found = exact_found
 
+    response.show_fp = True
+
     # MySQL credentials
     credentials_path = open(os.path.join(
         request.folder, 
@@ -82,17 +84,17 @@ def index():
             Image.open(submitted)
         except IOError:
             response.flash = 'Web form has errors'
-            return dict()            
+            return dict(latest=pull_latest(CREDENTIALS))            
         parseForm(submitted, web_form)    
         os.remove(submitted)
         redirect(URL('results'))
     elif image_form.errors:
         response.flash = 'Upload form has errors'
-        return dict()        
+        return dict(latest=pull_latest(CREDENTIALS))        
     elif web_form.errors:
         response.flash = 'Web form has errors'
-        return dict()                
-    return dict()
+        return dict(latest=pull_latest(CREDENTIALS))                
+    return dict(latest=pull_latest(CREDENTIALS))
 
 
 def downloadImage(image_url):
@@ -259,3 +261,23 @@ def checkImages(hashed, min_date, credentials):
         elif similarity > 90:
             neighbors.append(row)
     return dict(exact_matches=exact_matches, neighbors=neighbors)
+
+
+def pull_latest(credentials):
+    db = MySQLdb.connect(
+        host=credentials['host'],
+        user=credentials['user'],
+        passwd=credentials['password'],
+        db=credentials['db'],
+        cursorclass=MySQLdb.cursors.DictCursor            
+    )    
+    cur = db.cursor()
+    query = "SELECT * FROM popular ORDER BY timeAdded DESC LIMIT 5;"
+    cur.execute(query)
+    rows = cur.fetchall()
+    db.commit()
+    db.close()
+    for row in rows:
+        k = row['link'].rfind('.')
+        row['thumbnail'] = row['link'][:k] + 'b.' + row['link'][k+1:]
+    return rows

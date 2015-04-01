@@ -1,0 +1,13 @@
+<div class="ca_section">
+  <h4>meanwhile, on imgur...</h4>
+  <div>
+    {{for match in latest:}}
+      <div class="small-image-card center">
+        <a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">       
+          <img style="margin-left: 0; margin-right: 0;" src="{{=match['thumbnail']}}"/>       
+        </a>
+        <h4>Repost!</h4>
+      </div>  
+    {{pass}}
+  </div>
+</div>
