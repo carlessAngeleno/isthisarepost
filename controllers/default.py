@@ -288,12 +288,12 @@ def pull_latest(credentials):
     db.commit()
     db.close()
 
+    rows = [row for row in rows if thumbnail_exists(row)]
 
-    
     for row in rows:
-        
         k = row['link'].rfind('.')
         row['thumbnail'] = row['link'][:k] + 'b.' + row['link'][k+1:]
+
         if row['hashed'] is None:
             row['repost'] = False        
         else:
@@ -321,3 +321,13 @@ def pull_latest(credentials):
                 row['repost'] = False
 
     return rows
+
+
+def thumbnail_exists(row):
+    k = row['link'].rfind('.')
+    row['thumbnail'] = row['link'][:k] + 'b.' + row['link'][k+1:]    
+    try:
+        urllib2.urlopen(urllib2.Request(row['thumbnail']))
+        return True
+    except:
+        return False
