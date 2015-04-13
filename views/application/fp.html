@@ -1,13 +1,22 @@
-<div class="ca_section">
+<div class="ca_section fp">
   <h4>meanwhile, on imgur...</h4>
   <div>
     {{for match in latest:}}
-      <div class="small-image-card center">
-        <a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">       
-          <img style="margin-left: 0; margin-right: 0;" src="{{=match['thumbnail']}}"/>       
-        </a>
-        <h4>Repost!</h4>
-      </div>  
+      {{if match['repost']:}}
+        <div class="small-image-card center repost">
+            <h4 style="color:white;">Repost!</h4>
+          <a href="{{=URL('results', vars=dict(image_url=match['link']))}}">            
+            <img style="margin-left: 0; margin-right: 0;" src="{{=match['thumbnail']}}"/>       
+          </a>
+        </div>  
+      {{else:}}
+        <div class="small-image-card center new">
+            <h4>New</h4>
+          <a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank">            
+            <img style="margin-left: 0; margin-right: 0;" src="{{=match['thumbnail']}}"/>       
+          </a>
+        </div>        
+      {{pass}}
     {{pass}}
   </div>
 </div>
