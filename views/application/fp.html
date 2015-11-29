@@ -5,7 +5,7 @@
       {{if match['repost']:}}
         <div class="small-image-card center repost">
             <h4 style="color:white;">Repost!</h4>
-          <a href="{{=URL('results', vars=dict(image_url=match['link']))}}">            
+          <a href="{{=URL('index', vars=dict(image_url=match['link'], _formname='web_form', image_time=1))}}">
             <img style="margin-left: 0; margin-right: 0;" src="{{=match['thumbnail']}}"/>       
           </a>
         </div>  
