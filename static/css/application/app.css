@@ -20,3 +20,25 @@
 #link_input {
   max-width: 220px;
 }
+
+div.small-image-card {
+	padding: 4px; 
+	border: 1px solid rgba(249,209,209, 0.4);
+	border-radius: 10px;
+	margin: 4px;
+	padding-bottom: 15px;
+	opacity: 0.9;
+}
+
+div.small-image-card.repost {
+	background-color: #F44336;
+}
+
+div.small-image-card.new {
+	border-color: #4CAF50;
+}
+
+div.ca_section.fp {
+  max-height: 667px;
+  overflow: auto;
+}
