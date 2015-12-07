@@ -23,7 +23,7 @@ from datetime import date, timedelta
 
 def index():
 
-    def parseForm(submitted, form):       
+    def parseForm(submitted, form, exclude_pk=None):       
         image_time = int(form.vars.image_time) - 1     
 
         if image_time == 0:
@@ -34,7 +34,7 @@ def index():
             start_date = start_date.strftime("%Y-%m-%d")        
         
         hashed = avhash(submitted)
-        matches = checkImages(hashed, start_date, CREDENTIALS)
+        matches = checkImages(hashed, start_date, CREDENTIALS, exclude_pk)
 
 
         exact_matches = matches['exact_matches']
@@ -73,9 +73,10 @@ def index():
 
     # Process form
     matches = []
-    images = []    
+    images = []
     if image_form.accepts(request.vars,formname='image_form'):   
-        submitted = image_form.vars.image_file.file    
+        submitted = image_form.vars.image_file.file
+        exclude_pk = request.vars.exclude_pk
         parseForm(submitted, image_form)
         redirect(URL('results'))
     elif web_form.accepts(request.vars,formname='web_form'):         
@@ -84,8 +85,9 @@ def index():
             Image.open(submitted)
         except IOError:
             response.flash = 'Web form has errors'
-            return dict(latest=pull_latest(CREDENTIALS))            
-        parseForm(submitted, web_form)    
+            return dict(latest=pull_latest(CREDENTIALS))
+        exclude_pk = request.vars.exclude_pk
+        parseForm(submitted, web_form, exclude_pk)    
         os.remove(submitted)
         redirect(URL('results'))
     elif image_form.errors:
@@ -232,7 +234,7 @@ def checkImagesExactMatchOnly(hashed, min_date, credentials):
     return dict(exact_matches=exact_matches, neighbors=[])
 
 
-def checkImages(hashed, min_date, credentials):    
+def checkImages(hashed, min_date, credentials, exclude_pk=None):    
     # Query
     db = MySQLdb.connect(
         host=credentials['host'],
@@ -253,6 +255,12 @@ def checkImages(hashed, min_date, credentials):
     for row in rows:
         if row['hashed'] is None:
             continue
+        try:
+            exclude_pk_int = int(exclude_pk)
+            if row['pk'] == exclude_pk_int:
+                continue
+        except:
+            pass
         # Calc similarity
         dist = hamming(long(row['hashed']), hashed)        
         similarity = (64 - dist) * 100 / 64
