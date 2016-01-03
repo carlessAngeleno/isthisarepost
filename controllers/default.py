@@ -20,6 +20,11 @@ import tempfile
 import urllib2
 import datetime
 from datetime import date, timedelta
+import pyimgur
+
+
+GALLERY_SUBSTRING = 'imgur.com/gallery/'
+
 
 def index():
 
@@ -79,8 +84,12 @@ def index():
         exclude_pk = request.vars.exclude_pk
         parseForm(submitted, image_form)
         redirect(URL('results'))
-    elif web_form.accepts(request.vars,formname='web_form'):         
-        submitted = downloadImage(web_form.vars.image_url)
+    elif web_form.accepts(request.vars,formname='web_form'):
+        image_url = web_form.vars.image_url
+        if GALLERY_SUBSTRING in image_url:
+            image_id = image_url.split(GALLERY_SUBSTRING)[-1]
+            image_url = convert_to_image_url(image_id)
+        submitted = downloadImage(image_url)
         try:
             Image.open(submitted)
         except IOError:
@@ -339,3 +348,13 @@ def thumbnail_exists(row):
         return True
     except:
         return False
+
+
+def convert_to_image_url(id):
+    ids_path = open(os.path.join(
+        request.folder,
+        'private',
+        'ids.json'
+    ))
+    im = pyimgur.Imgur(json.load(ids_path)['imgur'])
+    return im.get_image(id).link
