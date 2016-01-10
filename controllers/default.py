@@ -282,6 +282,7 @@ def checkImages(hashed, min_date, credentials, exclude_pk=None):
     return dict(exact_matches=exact_matches, neighbors=neighbors)
 
 
+@cache()
 def pull_latest(credentials):
     start_date = date.today()-timedelta(days=30)
     start_date = start_date.strftime("%Y-%m-%d")           
