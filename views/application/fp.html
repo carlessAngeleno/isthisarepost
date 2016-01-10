@@ -2,10 +2,15 @@
   <h4>meanwhile, on imgur...</h4>
   <div>
     {{for match in latest:}}
-      {{if match['repost']:}}
+      {{if in match['repost']:}}
         <div class="small-image-card center repost">
-            <h4 style="color:white;">Repost!</h4>
-          <a href="{{=URL('index', vars=dict(image_url=match['link'], _formname='web_form', image_time=30, exclude_pk=match['pk']))}}" target="_blank">
+          <h4 style="color:white;">
+            <span style="margin-left: 50px;">Repost!</span>
+            <a href="{{=URL('index', vars=dict(image_url=match['link'], _formname='web_form', image_time=30, exclude_pk=match['pk']))}}" target="_blank">
+              <button class="btn ca_button"><i class="icon-search icon-white"></i></button>
+            </a>
+          </h4>
+          <a href="{{= 'http://imgur.com/gallery/' + str(match['id'])}}" target="_blank" target="_blank">
             <img style="margin-left: 0; margin-right: 0;" src="{{=match['thumbnail']}}"/>       
           </a>
         </div>  
