@@ -25,6 +25,14 @@ import pyimgur
 
 GALLERY_SUBSTRING = 'imgur.com/gallery/'
 
+ids_path = open(os.path.join(
+    request.folder,
+    'private',
+    'ids.json'
+))
+
+IM = pyimgur.Imgur(json.load(ids_path)['imgur'])
+
 
 def index():
 
@@ -309,8 +317,16 @@ def pull_latest(credentials):
     rows = [row for row in rows if thumbnail_exists(row)]
 
     for row in rows:
-        k = row['link'].rfind('.')
-        row['thumbnail'] = row['link'][:k] + 'b.' + row['link'][k+1:]
+        # if link is a multi-image album, extract cover image link
+        # using the imgur API
+        if 'imgur.com/a/' in row['link']:            
+            gallery_id = row['link'].split('/')[-1]
+            cover_image = extract_gallery_cover_image(gallery_id)
+            k = cover_image.rfind('.')
+            row['thumbnail'] = cover_image[:k] + 'b.' + cover_image[k+1:]
+        else:
+            k = row['link'].rfind('.')
+            row['thumbnail'] = row['link'][:k] + 'b.' + row['link'][k+1:]
 
         if row['hashed'] is None:
             row['repost'] = False        
@@ -352,10 +368,8 @@ def thumbnail_exists(row):
 
 
 def convert_to_image_url(id):
-    ids_path = open(os.path.join(
-        request.folder,
-        'private',
-        'ids.json'
-    ))
-    im = pyimgur.Imgur(json.load(ids_path)['imgur'])
-    return im.get_image(id).link
+    return IM.get_image(id).link
+
+
+def extract_gallery_cover_image(id):
+    return IM.get_gallery_album(id).cover.link
