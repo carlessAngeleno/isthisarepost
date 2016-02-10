@@ -319,10 +319,14 @@ def pull_latest(credentials):
     for row in rows:
         # if link is a multi-image album, extract cover image link
         # using the imgur API
-        if 'imgur.com/a/' in row['link']:            
+        if 'imgur.com/a/' in row['link']:          
             gallery_id = row['link'].split('/')[-1]
-            cover_image = extract_gallery_cover_image(gallery_id)
-            k = cover_image.rfind('.')
+            try:
+                cover_image = extract_gallery_cover_image(gallery_id)
+                k = cover_image.rfind('.')
+            except:
+                cover_image = 'sdfsfdsf.sdfsdf'
+                k = 8
             row['thumbnail'] = cover_image[:k] + 'b.' + cover_image[k+1:]
         else:
             k = row['link'].rfind('.')
